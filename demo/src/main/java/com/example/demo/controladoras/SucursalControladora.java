@@ -17,7 +17,7 @@ public class SucursalControladora {
     @Autowired
     private SucursalServicio ss;
 
-    @PostMapping("/agregarLibro")
+    @PostMapping("/agregarSucursales")
     public ResponseEntity agregarLibro(@RequestBody final @NotNull Sucursal s) {
         ss.add(s);
         return null;

@@ -77,12 +77,15 @@ public class ItemServicio {
 
         }
     }
+
+
     public List<SucursalDTO> getBooksForPlaces(Integer id){
         try{
             List<Integer> librosDisponibles = ir.findLibrosEnStock(id);
             List<SucursalDTO> lista = new ArrayList<>();
             for (Integer lid : librosDisponibles){
                 Sucursal sucursal = sr.findById(lid).orElseThrow(() -> new HttpClientErrorException(BAD_REQUEST));
+
                 lista.add(mm.map(sucursal, SucursalDTO.class));
             }
             return lista;

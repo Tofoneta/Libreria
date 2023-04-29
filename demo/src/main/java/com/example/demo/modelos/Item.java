@@ -1,5 +1,6 @@
 package com.example.demo.modelos;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -30,6 +31,7 @@ public class Item {
 
 
     @ManyToMany(mappedBy = "items")
+    @JsonIgnore
     private List<Sucursal> sucursales;
 
 }
