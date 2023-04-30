@@ -5,6 +5,8 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.Cascade;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.HashSet;
@@ -15,6 +17,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+
 public class Sucursal {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,16 +28,9 @@ public class Sucursal {
     private String Localidad;
 
 
-    @ManyToMany
-    @JoinTable(name = "disponibilidad_Sucursal", joinColumns = { @JoinColumn(name = "idSucursal")},inverseJoinColumns = {@JoinColumn(name = "idItems")})
+    @ManyToMany()
+    @JoinTable(name = "disponibilidad", joinColumns = { @JoinColumn(name = "Sucursal_ID")},inverseJoinColumns = {@JoinColumn(name = "Item_ID"),})
     private List<Item> items;
 
 }
 
-/*
-    @ManyToMany(mappedBy = "sucursales")
-    @JsonIgnore
-    private List<Item> items;
-
-
-}*/

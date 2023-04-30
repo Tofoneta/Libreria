@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Cascade;
 import org.jetbrains.annotations.NotNull;
 
 import java.nio.MappedByteBuffer;
@@ -30,7 +31,7 @@ public class Item {
     private Libro libro;
 
 
-    @ManyToMany(mappedBy = "items")
+    @ManyToMany(mappedBy = "items",cascade = CascadeType.ALL)
     @JsonIgnore
     private List<Sucursal> sucursales;
 
