@@ -31,7 +31,7 @@ public class Item {
     private Libro libro;
 
 
-    @ManyToMany(mappedBy = "items",cascade = CascadeType.ALL)
+    @ManyToMany(mappedBy = "items")
     @JsonIgnore
     private List<Sucursal> sucursales;
 

@@ -3,6 +3,7 @@ package com.example.demo.Servicios;
 import com.example.demo.Repositorio.SucursalRepositorio;
 import com.example.demo.modelos.Libro;
 import com.example.demo.modelos.Sucursal;
+import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -36,12 +37,20 @@ public class SucursalServicio {
             throw new RuntimeException(e.getMessage());
         }
     }
+
+
+    //crear auto temporal, guardarle los datos y después agregarlo al Repositorio
+
     public ResponseEntity update(Integer id, Sucursal sa) {
         try {
+            sa.setIdSucursal(id);
+
             Sucursal sucursal = sr.findById(id).orElseThrow(() -> new HttpClientErrorException(HttpStatus.BAD_REQUEST));
+
+            sucursal.setIdSucursal(sa.getIdSucursal());
             sucursal.setDireccion(sa.getDireccion());
             sucursal.setIdSucursal(sa.getIdSucursal());
-
+            sucursal.setItems(sa.getItems());
             sr.save(sucursal);
             return ResponseEntity.status(OK).build();
         } catch (Exception e) {
