@@ -28,7 +28,7 @@ public class Sucursal {
     private String Localidad;
 
 
-    @ManyToMany()
+    @ManyToMany
     @JoinTable(name = "disponibilidad", joinColumns = { @JoinColumn(name = "Sucursal_ID")},inverseJoinColumns = {@JoinColumn(name = "Item_ID"),})
     private List<Item> items;
 
