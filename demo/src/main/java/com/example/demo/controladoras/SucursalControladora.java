@@ -1,7 +1,7 @@
 package com.example.demo.controladoras;
 
 import com.example.demo.Servicios.SucursalServicio;
-import com.example.demo.modelos.Libro;
+import com.example.demo.modelos.Item;
 import com.example.demo.modelos.Sucursal;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,7 @@ public class SucursalControladora {
     @Autowired
     private SucursalServicio ss;
 
-    @PostMapping("/agregarSucursales")
+    @PostMapping("/agregarSucursal")
     public ResponseEntity agregarLibro(@RequestBody final @NotNull Sucursal s) {
         ss.add(s);
         return null;
@@ -40,8 +40,16 @@ public class SucursalControladora {
         return ss.update(id,sa);
     }
 
+
+
     @GetMapping("/{id}")
     public Sucursal get(@PathVariable Integer id) {
         return ss.get(id);
+    }
+
+
+    @GetMapping("/libros/{id}")
+    public List<Item> getLibros(@PathVariable Integer id) {
+        return ss.getBooksForPlaces(id);
     }
 }

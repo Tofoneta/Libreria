@@ -32,7 +32,7 @@ public class Sucursal {
     @ManyToMany()
     @JoinTable(name = "disponibilidad", joinColumns = @JoinColumn(name = "Sucursal_ID"), inverseJoinColumns = @JoinColumn(name = "Item_ID"))
     private List<Item> items;
-
+    private List<Integer> itemsAux;
 
 }
 

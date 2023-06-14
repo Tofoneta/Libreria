@@ -19,7 +19,7 @@ import java.util.List;
 public class ItemControladora {
     @Autowired
     private ItemServicio is;
-
+    private LibroServicio ls;
     @PostMapping("/agregarItem")
     public ResponseEntity agregarItem(@RequestBody final @NotNull Item i) {
         is.add(i);
@@ -44,11 +44,6 @@ public class ItemControladora {
     }
 
 
-    @GetMapping("/{id}/ItemsSucursales")
-    public List<SucursalDTO> getWhere(@PathVariable Integer id){
-        return is.getBooksForPlaces(id);
-    }
-
 
 
     @GetMapping("/{id}")
@@ -56,5 +51,9 @@ public class ItemControladora {
         return is.get(id);
     }
 
+    @GetMapping("id/{id}")
+    public Item getID(@PathVariable Integer id) {
+        return is.getID(id);
+    }
 
 }

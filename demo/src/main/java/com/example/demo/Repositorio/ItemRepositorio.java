@@ -10,8 +10,8 @@ import java.util.List;
 
 @Repository
 public interface ItemRepositorio extends JpaRepository<Item,Integer> {
-    @Query(value = "select id_sucursal from disponibilidad_sucursal where id_items = :IdItem",nativeQuery = true)
+    @Query(value = "select id_item, precio from item where id_item = :IdItem",nativeQuery = true)
 
-    List<Integer> findLibrosEnStock(Integer IdItem);
+    Item findID(Integer IdItem);
 
 }

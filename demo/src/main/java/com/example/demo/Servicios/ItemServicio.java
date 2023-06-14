@@ -7,6 +7,7 @@ import com.example.demo.Repositorio.SucursalRepositorio;
 import com.example.demo.modelos.*;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -23,22 +24,26 @@ public class ItemServicio {
     @Autowired
     private ItemRepositorio ir;
     private SucursalRepositorio sr;
+    private LibroRepositorio lr;
     private final ModelMapper mm = new ModelMapper();
 
     @Autowired
     public ItemServicio(ItemRepositorio ir, SucursalRepositorio sr) {
         this.ir = ir;
         this.sr = sr;
+
     }
 
     public ResponseEntity add(Item i) {
         try {
             ir.save(i);
+
             return ResponseEntity.status(CREATED).build();
         } catch (Exception e) {
             return ResponseEntity.status(INTERNAL_SERVER_ERROR).build();
         }
     }
+
 
     //Get all, obtener todos los datos
 
@@ -79,30 +84,25 @@ public class ItemServicio {
     }
 
 
-    public List<SucursalDTO> getBooksForPlaces(Integer id){
-        try{
-            List<Integer> librosDisponibles = ir.findLibrosEnStock(id);
-            List<SucursalDTO> lista = new ArrayList<>();
-            for (Integer lid : librosDisponibles){
-                Sucursal sucursal = sr.findById(lid).orElseThrow(() -> new HttpClientErrorException(BAD_REQUEST));
 
-                lista.add(mm.map(sucursal, SucursalDTO.class));
-            }
-            return lista;
-        }catch (Exception e){
-            throw new RuntimeException((e.getMessage()));
-
-        }
-    }
 
     public Item get(Integer id) {
         try {
-            return ir.findById(id).orElseThrow(() -> new HttpClientErrorException(HttpStatus.BAD_REQUEST));
-        } catch (Exception e) {
+
+            return ir.findById(id).orElseThrow(() -> new HttpClientErrorException(BAD_REQUEST));
+        }
+        catch (Exception e){
+            throw new RuntimeException((e.getMessage()));
+        }}
+
+    public Item getID(Integer idItem){
+        try {
+            return ir.findID(idItem);
+
+        }
+        catch (Exception e){
             throw new RuntimeException(e.getMessage());
         }
     }
 
-
 }
-

@@ -28,6 +28,7 @@ public class Item {
     @NotNull
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "Libro_ID", referencedColumnName = "idLibro")
+
     private Libro libro;
 
 
